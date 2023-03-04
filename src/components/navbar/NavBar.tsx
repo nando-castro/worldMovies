@@ -4,15 +4,17 @@ import { BiCameraMovie, BiSearchAlt2 } from "react-icons/bi";
 import Button from "../button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useLanguage } from "../../context/language";
 
 const NavBar = () => {
   const [search, setSearch] = useState("");
+  const { language, setLanguage }: any = useLanguage();
   const navigate = useNavigate();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (!search) return;
-
+    
     navigate(`/search?q=${search}`);
     setSearch("");
   };
@@ -25,6 +27,20 @@ const NavBar = () => {
           Mundo dos Filmes
         </Link>
       </h2>
+      <main>
+        <p
+          onClick={(e: any) => setLanguage(true)}
+          className={language ? "selected" : ""}
+        >
+          pt-BR
+        </p>
+        <p
+          onClick={(e: any) => setLanguage(false)}
+          className={language === false ? "selected" : ""}
+        >
+          en-US
+        </p>
+      </main>
       <Form>
         <Input
           width="100%"
@@ -57,6 +73,29 @@ const Container = styled.div`
 
   h2 {
     font-size: 30px;
+  }
+
+  main {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  p {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    cursor: pointer;
+    color: #fff;
+  }
+
+  .selected {
+    background-color: #00164e;
   }
 `;
 

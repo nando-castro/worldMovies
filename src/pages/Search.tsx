@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import MovieCard from "../components/movieCard/MovieCard";
 import NavBar from "../components/navbar/NavBar";
+import { useLanguage } from "../context/language";
 
 const searchUrl = import.meta.env.VITE_SEARCH;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -14,8 +15,11 @@ const Search = () => {
   const [movies, setMovies] = useState([]);
   const query = searchParams.get("q");
 
+  const { language }: any = useLanguage();
+
   const getSearchMovies = async (url: string) => {
-    await axios.get(url)
+    await axios
+      .get(url)
       .then((res) => {
         setMovies(res.data.results);
       })
@@ -25,7 +29,14 @@ const Search = () => {
   };
 
   useEffect(() => {
-    const searchWithQueryUrl = `${searchUrl}?${apiKey}&query=${query}`;
+    let searchWithQueryUrl;
+    if (language) {
+      searchWithQueryUrl = `${searchUrl}?${apiKey}&query=${query}&language=pt-BR&region=BR`;
+    } else {
+      searchWithQueryUrl = `${searchUrl}?${apiKey}&query=${query}`;
+    }
+
+    console.log(searchWithQueryUrl);
     getSearchMovies(searchWithQueryUrl);
   }, [query]);
 
@@ -38,7 +49,9 @@ const Search = () => {
   };
   return (
     <Container>
-      <Top><NavBar /></Top>
+      <Top>
+        <NavBar />
+      </Top>
       <Body>
         <SubTitle>Resultados para: {query}</SubTitle>
         {movies.length > 0 ? renderMoviesCard() : <p>Carregando...</p>}
@@ -56,7 +69,7 @@ const Top = styled.div`
   width: 100%;
   height: 60px;
 
-  background-color: #CCDBE4;
+  background-color: #ccdbe4;
 `;
 
 const Body = styled.div`

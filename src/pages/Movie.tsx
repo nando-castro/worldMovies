@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import NavBar from "../components/navbar/NavBar";
+import { useLanguage } from "../context/language";
 
 const imageUrl = import.meta.env.VITE_IMG;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -17,6 +18,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const Movie = () => {
   const { id } = useParams();
   const [movie, setMovie]: any = useState(null);
+  const { language }: any = useLanguage();
 
   const getMovie = async (url: string) => {
     await api
@@ -36,7 +38,13 @@ const Movie = () => {
     });
   };
   useEffect(() => {
-    const movieUrl = `${id}?${apiKey}`;
+    let movieUrl;
+
+    if (language === true) {
+      movieUrl = `${id}?${apiKey}&language=pt-BR`;
+    } else {
+      movieUrl = `${id}?${apiKey}`;
+    }
     getMovie(movieUrl);
   }, []);
 

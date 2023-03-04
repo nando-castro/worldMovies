@@ -4,17 +4,20 @@ import GlobalStyle from "./assets/css/global";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import Search from "./pages/Search";
+import { LanguageProvider } from "./context/language";
 
 function App() {
   return (
     <BrowserRouter>
       <ResetCSS />
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="movie/:id" element={<Movie />} />
-        <Route path="search" element={<Search />} />
-      </Routes>
+      <LanguageProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="movie/:id" element={<Movie />} />
+          <Route path="search" element={<Search />} />
+        </Routes>
+      </LanguageProvider>
     </BrowserRouter>
   );
 }
