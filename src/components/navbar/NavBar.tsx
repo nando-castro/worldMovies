@@ -52,7 +52,11 @@ const Container = styled.div`
   padding: 10px;
 
   .icon {
-    font-size: 20px;
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 30px;
   }
 `;
 

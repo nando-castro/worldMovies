@@ -82,6 +82,16 @@ const Movie = () => {
                 </h3>
                 <p>{movie.overview}</p>
               </section>
+              <section>
+                <h3>Lançamento:</h3>
+                <p>{movie.release_date}</p>
+              </section>
+              <section>
+                <h3>Gêneros:</h3>
+                <section>
+                  {movie && movie.genres.map((i: any) => <span className="genres">{i.name}</span>)}
+                </section>
+              </section>
             </div>
           </Content>
         ) : (
@@ -102,7 +112,7 @@ const Top = styled.div`
   width: 100%;
   height: 60px;
 
-  /* background-color: yellow; */
+  background-color: #ccdbe4;
 `;
 
 const Body = styled.div`
@@ -117,9 +127,6 @@ const Content = styled.main`
   height: 100%;
   display: flex;
   padding: 10px;
-  border-radius: 8px;
-
-  /* background-color: red; */
 
   main {
     width: 100%;
@@ -129,7 +136,6 @@ const Content = styled.main`
     justify-content: space-between;
     padding: 10px;
 
-    /* background-color: blueviolet; */
 
     span {
       text-align: center;
@@ -141,9 +147,9 @@ const Content = styled.main`
   }
 
   div {
+    width: 100%;
     height: 100%;
     flex-direction: column;
-    /* background-color: purple; */
   }
 
   h2 {
@@ -157,7 +163,12 @@ const Content = styled.main`
     width: 100%;
     height: auto;
     padding: 10px;
-    /* background-color: violet; */
+
+    .genres {
+      padding: 5px;
+      border: 1px solid #000;
+      
+    }
   }
 
   h3 {

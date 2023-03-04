@@ -57,7 +57,7 @@ const Top = styled.div`
   width: 100%;
   height: 60px;
 
-  background-color: yellow;
+  background-color: #CCDBE4;
 `;
 
 const Body = styled.div`
