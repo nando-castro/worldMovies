@@ -59,7 +59,7 @@ const Info = styled.div`
     cursor: pointer;
 `;
 
-const Vote = styled.p`
+const Vote = styled.span`
   position: absolute;
   margin-top: 5px;
   margin-left: 5px;
