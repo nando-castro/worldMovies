@@ -22,7 +22,6 @@ const Movie = () => {
     await api
       .get(url)
       .then((res) => {
-        console.log(res.data);
         setMovie(res.data);
       })
       .catch((err) => {
@@ -89,8 +88,17 @@ const Movie = () => {
               <section>
                 <h3>Gêneros:</h3>
                 <section>
-                  {movie && movie.genres.map((i: any) => <span className="genres">{i.name}</span>)}
+                  {movie &&
+                    movie.genres.map((i: any) => (
+                      <span key={i.id} className="genres">
+                        {i.name}
+                      </span>
+                    ))}
                 </section>
+              </section>
+              <section>
+                <h3>Idioma Oficial:</h3>
+                <p>{movie.original_language}</p>
               </section>
             </div>
           </Content>
@@ -105,7 +113,6 @@ const Movie = () => {
 const Container = styled.main`
   width: 100%;
   height: 100%;
-  /* background-color: green; */
 `;
 
 const Top = styled.div`
@@ -135,7 +142,6 @@ const Content = styled.main`
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-
 
     span {
       text-align: center;
@@ -167,7 +173,6 @@ const Content = styled.main`
     .genres {
       padding: 5px;
       border: 1px solid #000;
-      
     }
   }
 
