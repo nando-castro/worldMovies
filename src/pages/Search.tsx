@@ -36,7 +36,6 @@ const Search = () => {
       searchWithQueryUrl = `${searchUrl}?${apiKey}&query=${query}`;
     }
 
-    console.log(searchWithQueryUrl);
     getSearchMovies(searchWithQueryUrl);
   }, [query]);
 

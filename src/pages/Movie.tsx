@@ -41,7 +41,7 @@ const Movie = () => {
     let movieUrl;
 
     if (language === true) {
-      movieUrl = `${id}?${apiKey}&language=pt-BR`;
+      movieUrl = `${id}?${apiKey}&append_to_response=videos`;
     } else {
       movieUrl = `${id}?${apiKey}`;
     }
