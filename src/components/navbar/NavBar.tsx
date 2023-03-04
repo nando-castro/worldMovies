@@ -2,9 +2,20 @@ import styled from "styled-components";
 import Input from "../input/Input";
 import { BiCameraMovie, BiSearchAlt2 } from "react-icons/bi";
 import Button from "../button/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const NavBar = () => {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (!search) return;
+
+    navigate(`/search?q=${search}`);
+    setSearch("");
+  };
 
   return (
     <Container>
@@ -17,15 +28,18 @@ const NavBar = () => {
       <Form>
         <Input
           width="100%"
-          // height="100%"
           maxLength={50}
           type={"text"}
           placeholder={"Busque um filme"}
-          // value={movie}
-          name={"movie"}
-          // onChange={changeInput}
+          name={"search"}
+          value={search}
+          onChange={(e: any) => setSearch(e.target.value)}
         />
-        <Button type="submit" text={<BiSearchAlt2 className="icon" />} />
+        <Button
+          type="submit"
+          action={handleSubmit}
+          text={<BiSearchAlt2 className="icon" />}
+        />
       </Form>
     </Container>
   );

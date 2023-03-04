@@ -1,5 +1,91 @@
+import styled from "styled-components";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import MovieCard from "../components/movieCard/MovieCard";
+import NavBar from "../components/navbar/NavBar";
+
+const searchUrl = import.meta.env.VITE_SEARCH;
+const apiKey = import.meta.env.VITE_API_KEY;
+
 const Search = () => {
-  return <>Search Page</>;
+  const [searchParams] = useSearchParams();
+
+  const [movies, setMovies] = useState([]);
+  const query = searchParams.get("q");
+
+  const getSearchMovies = async (url: string) => {
+    await axios.get(url)
+      .then((res) => {
+        setMovies(res.data.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    const searchWithQueryUrl = `${searchUrl}?${apiKey}&query=${query}`;
+    console.log(searchWithQueryUrl)
+
+    getSearchMovies(searchWithQueryUrl);
+  }, [query]);
+
+  const renderMoviesCard = () => {
+    return movies.map((movie: any) => (
+      <Content key={movie.id}>
+        <MovieCard key={movie.id} movie={movie} showLink />
+      </Content>
+    ));
+  };
+  return (
+    <Container>
+      <Top><NavBar /></Top>
+      <Body>
+        <SubTitle>Resultados para: {query}</SubTitle>
+        {movies.length > 0 ? renderMoviesCard() : <p>Carregando...</p>}
+      </Body>
+    </Container>
+  );
 };
+
+const Container = styled.main`
+  width: 100%;
+  height: 100%;
+  background-color: red;
+`;
+
+const Top = styled.div`
+  width: 100%;
+  height: 60px;
+
+  background-color: yellow;
+`;
+
+const Body = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem;
+  margin: 0 auto;
+`;
+
+const SubTitle = styled.h2`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: gold;
+`;
+
+const Content = styled.div`
+  width: 400px;
+  max-height: 754px;
+
+  margin: 2rem;
+`;
 
 export default Search;

@@ -29,7 +29,7 @@ const Home = () => {
 
   const renderMoviesCard = () => {
     return topMovies.map((movie: any) => (
-      <Content>
+      <Content key={movie.id}>
         <MovieCard key={movie.id} movie={movie} showLink />
       </Content>
     ));
@@ -56,6 +56,8 @@ const Container = styled.main`
 const Top = styled.div`
   width: 100%;
   height: 60px;
+
+  background-color: yellow;
 `;
 
 const Body = styled.div`
