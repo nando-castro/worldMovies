@@ -5,7 +5,7 @@ import Button from "../button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "../../context/language";
-import logo from "../../assets/img/tmdb.svg"
+import logo from "../../assets/img/tmdb.svg";
 
 const NavBar = () => {
   const [search, setSearch] = useState("");
@@ -23,11 +23,15 @@ const NavBar = () => {
   return (
     <Container>
       <h2>
-        <img src={logo} alt="logo" />
         <Link to="/">
-          <BiCameraMovie className="icon" />
-          Mundo dos Filmes
+          <img src={logo} alt="logo" />
         </Link>
+        <div>
+          <Link to="/">
+            <BiCameraMovie className="icon" />
+            Mundo dos Filmes
+          </Link>
+        </div>
       </h2>
       <main>
         <p
@@ -80,6 +84,12 @@ const Container = styled.div`
     img {
       width: 80px;
       margin-right: 10px;
+    }
+
+    @media (max-width: 825px) {
+      div {
+        display: none;
+      }
     }
   }
 
