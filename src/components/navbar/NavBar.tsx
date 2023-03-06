@@ -14,7 +14,7 @@ const NavBar = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (!search) return;
-    
+
     navigate(`/search?q=${search}`);
     setSearch("");
   };
@@ -22,6 +22,7 @@ const NavBar = () => {
   return (
     <Container>
       <h2>
+        <img src="/src/assets/img/tmdb.svg" alt="logo" />
         <Link to="/">
           <BiCameraMovie className="icon" />
           Mundo dos Filmes
@@ -73,6 +74,12 @@ const Container = styled.div`
 
   h2 {
     font-size: 30px;
+    display: flex;
+
+    img {
+      width: 80px;
+      margin-right: 10px;
+    }
   }
 
   main {
